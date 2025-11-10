@@ -3,10 +3,12 @@ package algorithms
 import (
 	"net/http"
 	"sync/atomic"
+
+	"github.com/dipendra-mule/custom-load-balancer/backend"
 )
 
 type RoundRobin struct {
-	counter int
+	counter uint64
 }
 
 func (rr *RoundRobin) SelectBackend(pool *backend.BackendPool, r *http.Request) *backend.BackendServer {
@@ -19,6 +21,6 @@ func (rr *RoundRobin) SelectBackend(pool *backend.BackendPool, r *http.Request) 
 	return servers[index]
 }
 
-func (r *RoundRobin) Name() string {
+func (rr *RoundRobin) Name() string {
 	return "round-robin"
 }
